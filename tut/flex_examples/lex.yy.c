@@ -332,6 +332,9 @@ void yyfree (void *  );
 
 /* Begin user sect3 */
 
+#define yywrap() 1
+#define YY_SKIP_YYWRAP
+
 typedef unsigned char YY_CHAR;
 
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
@@ -446,14 +449,14 @@ int yy_flex_debug = 0;
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
 #line 1 "e1.lex"
-#line 2 "e1.lex"
-/*
-	Lex program adds line numbers to the file before printing
-	output.
-*/
-#include <stdio.h>
-int line_no = 1;
-#line 457 "lex.yy.c"
+#line 3 "e1.lex"
+	/*
+		Lex program adds line numbers to the file before printing
+		output.
+	*/
+	#include <stdio.h>
+	int line_no = 1;
+#line 460 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -635,9 +638,9 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
     
-#line 10 "e1.lex"
+#line 11 "e1.lex"
 
-#line 641 "lex.yy.c"
+#line 644 "lex.yy.c"
 
 	if ( !(yy_init) )
 		{
@@ -723,15 +726,15 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 11 "e1.lex"
+#line 12 "e1.lex"
 {printf("%5d %s", line_no++, yytext);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "e1.lex"
+#line 13 "e1.lex"
 ECHO;
 	YY_BREAK
-#line 735 "lex.yy.c"
+#line 738 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1725,11 +1728,10 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 12 "e1.lex"
+#line 13 "e1.lex"
 
 
-int main(){
-	yylex();
-	return 0;
-}
+	int main(int argc, char *argv[]){
+		yylex();
+	}
 
