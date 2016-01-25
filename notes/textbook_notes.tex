@@ -168,9 +168,13 @@
 					\item \textbf{ECHO} Lex default action (prints yytext to yyout)
 				\end{itemize}
 			\subsubsection{Command Line Sequence}
+				Note that this requires the ``flex-static" package to be installed if you wish to use the function yywrap().
+				You could also define your own yywrap() to cycle through multiple files, or include the ``\%option noyywrap"
+				at the top of your lex file (removing the ``-lfl" tag in gcc). This should limit you to using only one 
+				input file however.
 \begin{lstlisting}
 vim example.lex
 gcc lex.yy.c -lfl
-./a.out
+./a.out < some_source.c
 \end{lstlisting}
 \end{document}
