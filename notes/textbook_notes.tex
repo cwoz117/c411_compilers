@@ -117,12 +117,60 @@
 					Whenever a statement is ambiguous to multiple rules, the longest string takes precedence.
 				\item \textbf{Keyword Precedence}
 					If a word could either be an identifier or a keyword, the keyword is chosen.
-				\item \textbf{Order of occurance}
+				\item \textbf{Order of Occurance}
 					If a statement is bound to two expressions (in parser expressions like Lex) the first one encountered
 					is taken.
 			\end{itemize}
-			
-
-
-
+	\section{Generating a Scanner Automatically}
+		flex (Fast Lex) takes as input a text file containing regular expressions, and their required actions to perform them. It 
+		produces an output file in c defining a table-driven implementation of a DFA which acts on a character.
+		\subsection{Lex Conventions}
+			\begin{itemize}
+				\item Quotes denotes the actual character instead of the meta-characters. The backslash will 
+					work as well, but with only one character.
+				\item Lex understands all RegEx operations: $(+ * ( ) | ? . \wedge)$
+				\item Sets of characters are in square brackets.
+				\item The ``." represents any character except for a newline.
+				\item Meta-characters except backslashes lose their meta associations in square brackets.
+				\item Names must be used in curly brackets if they are used in an expression.
+			\end{itemize}
+\newpage
+		\subsection{Input File Format}
+\begin{lstlisting}
+	{definitions}
+	%%
+	{rules}
+	%%
+	{Auxillary Routines}
+\end{lstlisting}
+			\subsubsection{Definitions}
+				Before the first \%\% pair there are two main sections:
+				\begin{enumerate}
+					\item Any c-code that must be inserted external to functions used in the other two sections.
+					\item Regular Definitions
+				\end{enumerate}
+			\subsubsection{Rules}
+				Sequence of RegEx, followed by c code to be executed when the expression is matched. These pairs 
+				must be separated by whitespace.
+			\subsubsection{Auxillary Functions}
+				\begin{itemize}
+					\item Contains c-code for functions called in the rules section.
+					\item Can also contain the main program, if we want to compile the lex as a standalone program.
+				\end{itemize}
+			\subsubsection{Lex Internal structures}
+				\begin{itemize}
+					\item \textbf{lex.yy.c} Lex output file name.
+					\item \textbf{yylex()} Lex scanning routine (to call itself)
+					\item \textbf{yytext} String matched by the current regular expression.
+					\item \textbf{yyin} Lex input file
+					\item \textbf{yyout} Lex output file
+					\item \textbf{input} Lex buffered input routine
+					\item \textbf{ECHO} Lex default action (prints yytext to yyout)
+				\end{itemize}
+			\subsubsection{Command Line Sequence}
+\begin{lstlisting}
+vim example.lex
+gcc lex.yy.c -lfl
+./a.out
+\end{lstlisting}
 \end{document}

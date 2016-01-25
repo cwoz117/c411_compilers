@@ -9,3 +9,11 @@
 \contentsline {subsection}{\numberline {1.2.3}Identifiers}{4}{subsection.1.2.3}
 \contentsline {subsection}{\numberline {1.2.4}Comments}{4}{subsection.1.2.4}
 \contentsline {subsection}{\numberline {1.2.5}Whitespace, Ambiguity and the Look ahead problem}{5}{subsection.1.2.5}
+\contentsline {section}{\numberline {1.3}Generating a Scanner Automatically}{5}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Lex Conventions}{5}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Input File Format}{6}{subsection.1.3.2}
+\contentsline {subsubsection}{Definitions}{6}{section*.2}
+\contentsline {subsubsection}{Rules}{6}{section*.3}
+\contentsline {subsubsection}{Auxillary Functions}{6}{section*.4}
+\contentsline {subsubsection}{Lex Internal structures}{6}{section*.5}
+\contentsline {subsubsection}{Command Line Sequence}{6}{section*.6}
