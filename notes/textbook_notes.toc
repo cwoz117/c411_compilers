@@ -1,12 +1,11 @@
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}
-\contentsline {section}{\numberline {1.1}Translation Process}{2}{section.1.1}
-\contentsline {subsection}{\numberline {1.1.1}Lexical Analysis}{2}{subsection.1.1.1}
-\contentsline {subsection}{\numberline {1.1.2}Grammatical Analysis (Parser)}{3}{subsection.1.1.2}
-\contentsline {subsection}{\numberline {1.1.3}Semantic Analysis}{3}{subsection.1.1.3}
-\contentsline {subsection}{\numberline {1.1.4}Optimization}{3}{subsection.1.1.4}
-\contentsline {subsection}{\numberline {1.1.5}Code Generation}{3}{subsection.1.1.5}
-\contentsline {chapter}{\numberline {2}Lexical Analysis}{4}{chapter.2}
-\contentsline {section}{\numberline {2.1}Review}{4}{section.2.1}
-\contentsline {subsection}{\numberline {2.1.1}Regular Expressions}{4}{subsection.2.1.1}
-\contentsline {section}{\numberline {2.2}Scanning Process}{5}{section.2.2}
-\contentsline {subsection}{\numberline {2.2.1}Defining tokens}{5}{subsection.2.2.1}
+\contentsline {chapter}{\numberline {1}Lexical Analysis}{2}{chapter.1}
+\contentsline {section}{\numberline {1.1}Regular Expressions}{2}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Basic RegEx's}{2}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}RegEx Operations}{3}{subsection.1.1.2}
+\contentsline {subsection}{\numberline {1.1.3}RegEx Extensions}{3}{subsection.1.1.3}
+\contentsline {section}{\numberline {1.2}Common Programming Tokens}{4}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Numbers}{4}{subsection.1.2.1}
+\contentsline {subsection}{\numberline {1.2.2}Reserved Words}{4}{subsection.1.2.2}
+\contentsline {subsection}{\numberline {1.2.3}Identifiers}{4}{subsection.1.2.3}
+\contentsline {subsection}{\numberline {1.2.4}Comments}{4}{subsection.1.2.4}
+\contentsline {subsection}{\numberline {1.2.5}Whitespace, Ambiguity and the Look ahead problem}{5}{subsection.1.2.5}

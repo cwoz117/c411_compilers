@@ -1,12 +1,11 @@
-\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 1
-\BOOKMARK [1][-]{section.1.1}{Translation Process}{chapter.1}% 2
-\BOOKMARK [2][-]{subsection.1.1.1}{Lexical Analysis}{section.1.1}% 3
-\BOOKMARK [2][-]{subsection.1.1.2}{Grammatical Analysis \(Parser\)}{section.1.1}% 4
-\BOOKMARK [2][-]{subsection.1.1.3}{Semantic Analysis}{section.1.1}% 5
-\BOOKMARK [2][-]{subsection.1.1.4}{Optimization}{section.1.1}% 6
-\BOOKMARK [2][-]{subsection.1.1.5}{Code Generation}{section.1.1}% 7
-\BOOKMARK [0][-]{chapter.2}{Lexical Analysis}{}% 8
-\BOOKMARK [1][-]{section.2.1}{Review}{chapter.2}% 9
-\BOOKMARK [2][-]{subsection.2.1.1}{Regular Expressions}{section.2.1}% 10
-\BOOKMARK [1][-]{section.2.2}{Scanning Process}{chapter.2}% 11
-\BOOKMARK [2][-]{subsection.2.2.1}{Defining tokens}{section.2.2}% 12
+\BOOKMARK [0][-]{chapter.1}{Lexical Analysis}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Regular Expressions}{chapter.1}% 2
+\BOOKMARK [2][-]{subsection.1.1.1}{Basic RegEx's}{section.1.1}% 3
+\BOOKMARK [2][-]{subsection.1.1.2}{RegEx Operations}{section.1.1}% 4
+\BOOKMARK [2][-]{subsection.1.1.3}{RegEx Extensions}{section.1.1}% 5
+\BOOKMARK [1][-]{section.1.2}{Common Programming Tokens}{chapter.1}% 6
+\BOOKMARK [2][-]{subsection.1.2.1}{Numbers}{section.1.2}% 7
+\BOOKMARK [2][-]{subsection.1.2.2}{Reserved Words}{section.1.2}% 8
+\BOOKMARK [2][-]{subsection.1.2.3}{Identifiers}{section.1.2}% 9
+\BOOKMARK [2][-]{subsection.1.2.4}{Comments}{section.1.2}% 10
+\BOOKMARK [2][-]{subsection.1.2.5}{Whitespace, Ambiguity and the Look ahead problem}{section.1.2}% 11
