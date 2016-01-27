@@ -2,14 +2,11 @@
 %{
 	#include <ctype.h>
 	#include <stdio.h>
-	#include <stdlib.h>
 	
-	#define FALSE 1
-	#define TRUE 0
+	#define FALSE 0
+	#define TRUE 1
 	
 	void strUpper(char *buf, char *ptr);
-	char *word;
-	int nest_count = 0;
 %}
 
 operations	("+"|":="|"-"|"*"|"/")
@@ -23,28 +20,30 @@ identifier	{letter}({letter}|{digit})*
 "("	{printf("LPAR\t(\n");}
 ")"	{printf("RPAR\t)\n");}
 ";"	{printf("TERM\t;\n");}
+{reserved}	{
+	char word[sizeof(yytext)];
+	strUpper(&word[0], yytext);
+	printf("KEY\t%s\n", yytext);
+}
 {whitespace}	;
 {operations}	{printf("OP\t%s\n", yytext);}
 {identifier}	{printf("ID\t%s\n", yytext);}
+
 {digit}+	{printf("NUM\t%d\n",atoi(yytext));}
-{reserved} {	
-	word = malloc(sizeof(yytext));
-	strUpper(word, yytext);
-	printf("KEY\t%s\n",word);
-	free(word);
-}
-[%](.)* ;
-"/*"	{
+
+
+[%](.)* 	;
+
+"/*"		{
 	char c;
 	int done = FALSE;
-	ECHO;
 	do {
-		while ((c=input()) != '*')
-			putchar(c);
-		putchar(c);
-		while((c=input()) == '*')
-			putchar(c);
-		putchar(c);
+		while ((c=input()) != '*'){
+			input();
+		}
+		while((c=input()) == '*'){
+			input();
+		}
 		if (c == '/')
 			done = TRUE;
 	} while (!done);
