@@ -1,3 +1,4 @@
 *.pdf
 *.gz
 *.out
+lex.yy.c
