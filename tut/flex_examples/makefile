@@ -1,2 +1,2 @@
 all:
-	gcc lex.yy.c -o parser
+	gcc lex.yy.c -o parse.out
