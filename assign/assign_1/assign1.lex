@@ -1,4 +1,3 @@
-
 %option noyywrap
 %{
 	#include <ctype.h>
