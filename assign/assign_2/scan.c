@@ -241,7 +241,9 @@ int load_source(char *name){
 		return 0;
 	}
 }
-
+int main(){
+	
+}
 int delete(){
 	free(file);
 }
