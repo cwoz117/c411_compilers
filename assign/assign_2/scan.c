@@ -206,6 +206,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'h'){
 					tok.type = THEN;
+					ptr += 2;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -215,6 +216,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'l'){
 					tok.type = ELSE;
+					ptr += 2;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -224,6 +226,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'h') {
 					tok.type = WHILE;
+					ptr += 3;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -242,6 +245,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'e'){
 					tok.type = BEGIN;
+					ptr += 3;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -251,6 +255,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'n'){
 					tok.type = END;
+					ptr += 1;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
