@@ -19,3 +19,6 @@ typedef struct TOKEN{
 		int val;
 	}attribute;
 } TOKEN;
+
+void printToken(TOKEN);
+TOKEN getToken(void);

@@ -24,7 +24,7 @@ typedef enum {
 	D_PRINT, D_READ
 }DFA_STATE;
 
-void print_token(TOKEN t){
+void printToken(TOKEN t){
 	char str[16];
 	switch (t.type){
 		case BEGIN:
@@ -75,12 +75,9 @@ void print_token(TOKEN t){
 	printf("%s\n", str);
 }
 
-static TOKEN set_token(char c){
+static TOKEN setToken(char c){
 	TOKEN tok;
 	switch (c){
-		case '\0':
-			tok.type = ENDFILE;
-			break;
 		case '+':
 			tok.type = ADD;
 			break;
@@ -354,7 +351,7 @@ int main(int argc, char *argv[]){
 		exit(0);
 	TOKEN t = getToken();		// MAYBE OK.
 	while (t.type != ENDFILE){
-		print_token(t);
+		printToken(t);
 		t = getToken();
 	}
 	delete();
