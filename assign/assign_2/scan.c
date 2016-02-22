@@ -21,7 +21,7 @@ typedef enum {
 	D_IF, D_THEN, D_ELSE,
 	D_BEGIN, D_END,
 	D_DO, D_WHILE,
-	D_PRINT, D_READ;
+	D_PRINT, D_READ
 }DFA_STATE;
 
 void print_token(TOKEN t){
@@ -49,7 +49,10 @@ void print_token(TOKEN t){
 			memcpy(&str[0], "ERROR\0", 6);
 			break;
 		case PRINT:
-			memcpy(&str[0], "ERROR\0", 6);
+			memcpy(&str[0], "PRINT\0", 6);
+			break;
+		case READ:
+			memcpy(&str[0], "READ\0", 5);
 			break;
 		default:
 			memcpy(&str[0], "OPERATOR\0", 9);
@@ -259,17 +262,17 @@ TOKEN getToken(){
 				break;
 			case D_PRINT:
 				dfa = D_DONE;
-				if (c == 'r' || c== 'R') {
+				if (c == 'p' || c== 'P') {
 					tok.type = PRINT;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
 				}
 				break;
-			case D_WRITE:
+			case D_READ:
 				dfa = D_DONE;
 				if (c == 'r' || c== 'R') {
-					tok.type = WRITE;
+					tok.type = READ;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -287,6 +290,7 @@ TOKEN getToken(){
 
 int load_source(char *name){
 	FILE *fd = fopen(name, "r");
+	if (fd != NULL){
 	if (fd != NULL){
 		// Determine the buffer size requirement
 		if (fseek(fd, 0L, SEEK_END) == 0){

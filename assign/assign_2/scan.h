@@ -9,7 +9,7 @@ typedef enum{
 	BEGIN, END, 
 	WHILE, DO, 
 	IF, THEN, ELSE,
-	PRINT, WRITE
+	PRINT, READ
 }TOKEN_CLASS;
 
 typedef struct TOKEN{
