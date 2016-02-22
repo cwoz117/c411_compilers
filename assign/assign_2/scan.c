@@ -23,6 +23,36 @@ typedef enum {
 	D_DO, D_WHILE, 
 }DFA_STATE;
 
+void print_token(TOKEN t){
+	char str[16];
+	switch (t.type){
+		case BEGIN:
+			memcpy(&str[0], "BEGIN\0", 6);
+			break;
+		case END:
+			memcpy(&str[0], "END\0", 4);
+			break;
+		case SEMICOLON:
+			memcpy(&str[0], "SEMICOLON\0", 10);
+			break;
+		case ASSIGN:
+			memcpy(&str[0], "ASSIGN\0", 7);
+			break;
+		case VAR:
+			memcpy(&str[0], "VAR\0", 4);
+			break;
+		case NUM:
+			memcpy(&str[0], "NUM\0", 4);
+			break;
+		case ERROR:
+			memcpy(&str[0], "ERROR\0", 6);
+			break;
+		default:
+			memcpy(&str[0], "OPERATOR\0", 9);
+	}
+	printf("%s\n", str);
+}
+
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
@@ -56,35 +86,7 @@ static TOKEN set_token(char c){
 		}
 	return tok;
 }
-void print_token(TOKEN t){
-	char str[16];
-	switch (t.type){
-		case BEGIN:
-			memcpy(&str[0], "BEGIN\0", 6);
-			break;
-		case END:
-			memcpy(&str[0], "END\0", 4);
-			break;
-		case SEMICOLON:
-			memcpy(&str[0], "SEMICOLON\0", 10);
-			break;
-		case ASSIGN:
-			memcpy(&str[0], "ASSIGN\0", 7);
-			break;
-		case VAR:
-			memcpy(&str[0], "VAR\0", 4);
-			break;
-		case NUM:
-			memcpy(&str[0], "NUM\0", 4);
-			break;
-		case ERROR:
-			memcpy(&str[0], "ERROR\0", 6);
-			break;
-		default:
-			memcpy(&str[0], "OPERATOR\0", 9);
-	}
-	printf("%s\n", str);
-}
+
 TOKEN getToken(){
 	TOKEN tok;
 	DFA_STATE dfa = D_START;
@@ -100,6 +102,7 @@ TOKEN getToken(){
 				} else if (isalpha(c)){
 					switch(c){
 						case 'B':
+							printf("got to begin\n");
 							dfa = D_BEGIN;
 							break;
 						case 'E':
