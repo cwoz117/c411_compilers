@@ -172,7 +172,7 @@ TOKEN getToken(){
 				
 				} else {
 					dfa = D_DONE;
-					tok = set_token(c);
+					tok = setToken(c);
 				}
 				break;
 			case D_NUM:

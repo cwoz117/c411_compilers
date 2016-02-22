@@ -1,4 +1,5 @@
-
+#ifndef SCAN_HEAD
+#define SCAN_HEAD
 
 
 typedef enum{
@@ -19,6 +20,8 @@ typedef struct TOKEN{
 		int val;
 	}attribute;
 } TOKEN;
+
+#endif
 
 void printToken(TOKEN);
 TOKEN getToken(void);

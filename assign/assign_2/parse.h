@@ -1,7 +1,7 @@
-#ifndef GLOBAL
-#define GLOBAL
-#include "scan.h"
-#endif
+#ifndef PARSE_HEAD
+#define PARSE_HEAD
+
+
 
 typedef enum {
 	STMT, EXP
@@ -31,5 +31,6 @@ typedef struct NODE{
 	}attribute;
 }NODE;
 
+#endif
 
 NODE parse(void);
