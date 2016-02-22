@@ -276,9 +276,12 @@ TOKEN getToken(){
 				}
 				break;
 			case D_BLOCK_COMMENT:
-				if (c == '*')
-					if (file[ptr+1] == '/')
+				if (c == '*'){
+					if (file[ptr+1] == '/'){
 						dfa = D_START;
+						ptr += 1;
+					}
+				}
 				break;
 			case D_INLINE_COMMENT:
 				if (c == '\n')
