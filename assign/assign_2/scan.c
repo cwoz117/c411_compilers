@@ -56,7 +56,7 @@ void print_token(TOKEN t){
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
-		case '\0':
+		case EOF:
 			tok.type = ENDFILE;
 			break;
 		case '+':
@@ -103,7 +103,7 @@ TOKEN getToken(){
 					switch(c){
 						case 'b':
 						case 'B':
-							printf("got to begin\n");
+							
 							dfa = D_BEGIN;
 							break;
 						case 'e':
@@ -172,8 +172,10 @@ TOKEN getToken(){
 				}
 				break;
 			case D_ASSIGN:
+				printf("got to assign\n");
 				dfa = D_DONE;
 				if (c == '='){
+					printf("got to the right state\n");
 					tok.type = ASSIGN;
 				} else {
 					ptr -= 1;
