@@ -22,10 +22,10 @@ typedef enum {
 	D_DO, D_WHILE, 
 }DFA_STATE;
 
-static boolean isNumber(char a){
+static int isNumber(char a){
 	
 }
-static boolean isAlpha(char a){
+static int isAlpha(char a){
 	
 }
 static TOKEN set_token(char c){
@@ -59,14 +59,13 @@ static TOKEN set_token(char c){
 			tok.type = ERROR;
 			break;
 		}
-	}
 	return tok;
 }
 
 TOKEN getToken(){
 	TOKEN tok;
 	DFA_STATE dfa = D_START;
-	while (dfa != DONE){
+	while (dfa != D_DONE){
 		char c = file[ptr];
 		switch (dfa){
 			case D_START:
@@ -111,7 +110,7 @@ TOKEN getToken(){
 					dfa = D_DONE;
 					tok.type = NUM;
 					char buf[ptr - init_ptr];
-					memcpy(buf, file[init_ptr], 
+					memcpy(&buf[0], &file[init_ptr], 
 					      (ptr - init_ptr));
 				}	tok.attribute.val = atoi(&buf[0]);
 				break;
@@ -120,7 +119,7 @@ TOKEN getToken(){
 					ptr -=1;
 					dfa = D_DONE;
 					tok.type = VAR;
-					memcpy(tok.attribute.name, file[init_ptr], 
+					memcpy(tok.attribute.name, &file[init_ptr], 
 					      (ptr - init_ptr));
 				}
 				break;
@@ -232,7 +231,7 @@ int load_source(char *name){
 			if (count == 0)
 				return 0;
 			else
-				fd[count++] = '\0';
+				memcpy(fd[count++], '\0', 1);
 			fclose(fd);
 		}
 		
