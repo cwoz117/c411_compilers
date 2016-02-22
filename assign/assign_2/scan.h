@@ -1,12 +1,20 @@
 
-typedef enum {
-	IF, THEN, ELSE, ADD, SUB, NUM, ID, MUL, DIV, BEGIN, END, DO, WHILE, SEMICOLON, RPAR, LPAR
-} TOKEN_CLASS;
+
+
+typedef enum{
+	ENDFILE, ERROR,
+	ADD, SUB, MUL, DIV, 
+	LPAR, RPAR, SEMICOLON, 
+	NUM, VAR, ASSIGN
+	BEGIN, END, 
+	WHILE, DO, 
+	IF, THEN, ELSE
+}TOKEN_CLASS;
 
 typedef struct TOKEN{
 	TOKEN_CLASS type;
 	union{
-		char *name;
+		char name[128];
 		int val;
 	}attribute;
 } TOKEN;
