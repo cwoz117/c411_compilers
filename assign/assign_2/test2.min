@@ -1,0 +1,9 @@
+begin
+
+    read y;
+    if y then x:= 10
+         else x:= 1;
+    z:= y * x;
+    print z;
+
+end

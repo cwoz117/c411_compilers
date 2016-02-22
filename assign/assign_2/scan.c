@@ -235,15 +235,25 @@ int load_source(char *name){
 				memcpy(&file[count++], '\0', sizeof(char));
 			fclose(fd);
 		}
-		
 		return 1;
 	} else {
 		return 0;
 	}
 }
-int main(){
-	
-}
+
 int delete(){
 	free(file);
+}
+int main(int argc, char *argv[]){
+	load_source(argv[1]);
+	TOKEN t = getToken();
+	while (t.type != ENDFILE){
+		if (t.type == NUM){
+			printf("%s\t%d", t.type, t.attribute.num);
+		} else if(t.type = VAR){
+			printf("%s\t%s", t.type, t.attribute.name);
+		} else {
+			printf("%s", t.type);
+		}
+	}
 }
