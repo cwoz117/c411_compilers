@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #ifndef GLOBALS
 #define GLOBALS
@@ -21,7 +22,14 @@ typedef enum {
 	D_DO, D_WHILE, 
 }DFA_STATE;
 
-static void set_token(char c){
+static boolean isNumber(char a){
+	
+}
+static boolean isAlpha(char a){
+	
+}
+static TOKEN set_token(char c){
+	TOKEN tok;
 	switch (c){
 		case EOF:
 			tok.type = ENDFILE;
@@ -62,7 +70,7 @@ TOKEN getToken(){
 		char c = file[ptr];
 		switch (dfa){
 			case D_START:
-				if (isDigit(c)){
+				if (isNumber(c)){
 					dfa = D_NUM;
 					init_ptr = ptr;
 				} else if (c == ':'){
@@ -94,11 +102,11 @@ TOKEN getToken(){
 					init_ptr = ptr;
 				} else {
 					dfa = D_DONE;
-					set_token(c);
+					tok = set_token(c);
 				}
 				break;
 			case D_NUM:
-				if (!isDigit(c)){
+				if (!isNumber(c)){
 					ptr -=1;
 					dfa = D_DONE;
 					tok.type = NUM;
@@ -198,7 +206,7 @@ TOKEN getToken(){
 					dfa = D_START;
 				break;
 			default:
-				dfa = D_DONE:
+				dfa = D_DONE;
 				tok.type = ERROR;
 				break;
 		}
@@ -220,11 +228,11 @@ int load_source(char *name){
 				return 0;
 			
 			// Load the file
-			int count = fread(fd, sizeof(char), buffer_size, fp);
+			int count = fread(fd, sizeof(char), buffer_size, fd);
 			if (count == 0)
 				return 0;
 			else
-				source[count++] = '\0';
+				fd[count++] = '\0';
 			fclose(fd);
 		}
 		
