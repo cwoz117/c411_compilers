@@ -22,3 +22,4 @@ typedef struct TOKEN{
 
 void printToken(TOKEN);
 TOKEN getToken(void);
+int load_source(char * source_file);

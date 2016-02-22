@@ -283,3 +283,10 @@ Node * parse(void){
 		syntax_error("still code left in the file\n");
 	}
 }
+
+int main(int argc, char * argv[]){
+	int i = load_source(argv[1]);
+	if (i){
+		parse();
+	}
+}

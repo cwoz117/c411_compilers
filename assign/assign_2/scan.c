@@ -345,6 +345,7 @@ int load_source(char *name){
 int delete(){
 	free(file);
 }
+/*
 int main(int argc, char *argv[]){
 	int test = load_source(argv[1]); // OK
 	if (test == 0)
@@ -355,4 +356,4 @@ int main(int argc, char *argv[]){
 		t = getToken();
 	}
 	delete();
-}
+} */
