@@ -221,7 +221,6 @@ TOKEN getToken(){
 				tok.type = ERROR;
 				break;
 		}
-		print_token(tok);
 		ptr += 1;
 	}
 	return tok;
@@ -263,14 +262,7 @@ int main(int argc, char *argv[]){
 		exit(0);
 	TOKEN t = getToken();
 	while (t.type != ENDFILE){
-		printf("test\n");
-		if (t.type == NUM){
-			printf("%s\t%d\n", t.type, t.attribute.val);
-		} else if(t.type = VAR){
-			printf("%s\t%s\n", t.type, t.attribute.name);
-		} else {
-			printf("%s\n", t.type);
-		}
+		print_token(t);
 	}
 	delete();
 }
