@@ -125,6 +125,11 @@ TOKEN getToken(){
 					dfa = D_ASSIGN;
 				} else if (c == '%'){
 					dfa = D_INLINE_COMMENT;
+				}else if (c == '/'){
+					if (file[ptr+1] == '*'){
+							dfa = D_BLOCK_COMMENT;
+							printf("block comment\n");
+						}
 				}else if (isalpha(c)){
 					switch(c){
 					case 'b':
@@ -162,12 +167,6 @@ TOKEN getToken(){
 					case 'r':
 					case 'R':
 						dfa = D_READ;
-						break;
-					case '/':
-						if (file[ptr+1] == '*'){
-							dfa = D_BLOCK_COMMENT;
-							printf("block comment\n");
-						}
 						break;
 					default:
 						dfa = D_VAR;
