@@ -215,22 +215,31 @@ TOKEN getToken(){
 
 int load_source(char *name){
 	FILE *fd = fopen(name, "r");
+	printf("load_source Intro\n");
 	if (fd != NULL){
+		printf("load_source FD not null");
 		// Determine the buffer size requirement
 		if (fseek(fd, 0L, SEEK_END) == 0){
+			printf("load_source FSEEK'ed to the end\n");
 			long buffer_size = ftell(fd);
+			printf("ftelled\n");
 			if (buffer_size = -1)
 				return 0;
 			file = malloc(sizeof(char) * (buffer_size+1));
+			printf("malloced\n");
+			if (file == NULL)
+				return 0;
 			if (fseek(fd, 0L, SEEK_SET) != 0)
 				return 0;
-			
+			printf("malloc ok\n");
 			// Load the file
 			int count = fread(file, sizeof(char), buffer_size, fd);
+			printf("fread the file\n");
 			if (count == 0)
 				return 0;
 			else
 				memcpy(&file[count++], '\0', sizeof(char));
+			printf("memcopied\n");
 			fclose(fd);
 		}
 		return 1;
