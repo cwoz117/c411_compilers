@@ -249,7 +249,7 @@ int main(int argc, char *argv[]){
 	TOKEN t = getToken();
 	while (t.type != ENDFILE){
 		if (t.type == NUM){
-			printf("%s\t%d", t.type, t.attribute.num);
+			printf("%s\t%d", t.type, t.attribute.val);
 		} else if(t.type = VAR){
 			printf("%s\t%s", t.type, t.attribute.name);
 		} else {
