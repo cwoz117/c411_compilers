@@ -248,12 +248,14 @@ int main(int argc, char *argv[]){
 	load_source(argv[1]);
 	TOKEN t = getToken();
 	while (t.type != ENDFILE){
+		printf("test\n");
 		if (t.type == NUM){
-			printf("%s\t%d", t.type, t.attribute.val);
+			printf("%s\t%d\n", t.type, t.attribute.val);
 		} else if(t.type = VAR){
-			printf("%s\t%s", t.type, t.attribute.name);
+			printf("%s\t%s\n", t.type, t.attribute.name);
 		} else {
-			printf("%s", t.type);
+			printf("%s\n", t.type);
 		}
 	}
+	delete();
 }
