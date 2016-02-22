@@ -95,33 +95,47 @@ TOKEN getToken(){
 				if (isdigit(c)){
 					dfa = D_NUM;
 					init_ptr = ptr;
-				} else if (c == ':'){
-					dfa = D_ASSIGN;
 				} else if (WHITESPACE){
 					// Do nothing
-				} else if (c == '/'){
-					if (file[ptr+1] == '*')
-						dfa = D_BLOCK_COMMENT;
-				} else if (c == '%'){
-					dfa = D_INLINE_COMMENT;
-				} else if (c == 'B') {
-					dfa = D_BEGIN;
-				} else if (c == 'E') {
-					if (file[ptr+1] == 'N')
-						dfa = D_END;
-					else if (file[ptr+1] == 'L')
-						dfa = D_ELSE;
-				} else if (c == 'i'){
-					dfa = D_IF;
-				} else if (c == 't'){
-					dfa = D_THEN;
-				} else if (c == 'w') {
-					dfa = D_WHILE;
-				} else if (c == 'd'){
-					dfa = D_DO;
 				} else if (isalpha(c)){
-					dfa = D_VAR;
-					init_ptr = ptr;
+					switch(c){
+						case 'B':
+							dfa = D_BEGIN;
+							break;
+						case 'E':
+							if (file[ptr+1] == 'N')
+								dfa = D_END;
+							else (file[ptr+1] == 'L')
+								dfa = D_ELSE;
+							break;
+						case ':':
+							dfa = D_ASSIGN;
+							break;
+						case '%':
+							dfa = D_INLINE_COMMENT;
+							break;
+						case 'i':
+							dfa = D_IF;
+							break;
+						case 't':
+							dfa = D_THEN;
+							break;
+						case 'w':
+							dfa = D_WHILE;
+							break;
+						case 'd':
+							dfa = D_DO;
+							break;
+						case '/':
+							if (file[ptr+1] == '*')
+								dfa = D_BLOCK_COMMENT;
+							break;
+						default:
+							dfa = D_VAR;
+							init_ptr = ptr;
+							break;
+					}
+					
 				} else {
 					dfa = D_DONE;
 					tok = set_token(c);
