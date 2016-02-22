@@ -274,6 +274,7 @@ int main(int argc, char *argv[]){
 	TOKEN t = getToken();		// MAYBE OK.
 	while (t.type != ENDFILE){
 		print_token(t);
+		t = getToken();
 	}
 	delete();
 }
