@@ -222,7 +222,7 @@ int load_source(char *name){
 		if (fseek(fd, 0L, SEEK_END) == 0){
 			printf("load_source FSEEK'ed to the end\n");
 			long buffer_size = ftell(fd);
-			printf("ftelled\n");
+			printf("buffer size: %d\n", buffer_size);
 			if (buffer_size = -1)
 				return 0;
 			file = malloc(sizeof(char) * (buffer_size+1));
