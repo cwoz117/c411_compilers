@@ -26,7 +26,7 @@ typedef enum {
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
-		case EOF:
+		case '\0':
 			tok.type = ENDFILE;
 			break;
 		case '+':
@@ -67,6 +67,15 @@ void print_token(TOKEN t){
 			break;
 		case SEMICOLON:
 			memcpy(&str[0], "SEMICOLON\0", 10);
+			break;
+		case ASSIGN:
+			memcpy(&str[0], "ASSIGN\0", 7);
+			break;
+		case VAR:
+			memcpy(&str[0], "VAR\0", 4);
+			break;
+		case NUM:
+			memcpy(&str[0], "NUM\0", 4);
 			break;
 		default:
 			memcpy(&str[0], "OTHER\0", 6);
@@ -259,10 +268,10 @@ int delete(){
 	free(file);
 }
 int main(int argc, char *argv[]){
-	int test = load_source(argv[1]);
+	int test = load_source(argv[1]); // OK
 	if (test == 0)
 		exit(0);
-	TOKEN t = getToken();
+	TOKEN t = getToken();		// MAYBE OK.
 	while (t.type != ENDFILE){
 		print_token(t);
 	}
