@@ -62,6 +62,7 @@ TOKEN getToken(){
 	DFA_STATE dfa = D_START;
 	while (dfa != D_DONE){
 		char c = file[ptr];
+		printf("%c", c);
 		switch (dfa){
 			case D_START:
 				if (isdigit(c)){
