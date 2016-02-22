@@ -68,6 +68,8 @@ void print_token(TOKEN t){
 		case SEMICOLON:
 			memcpy(&str[0], "SEMICOLON\0", 10);
 			break;
+		default:
+			memcpy(&str[0], "OTHER\0", 6);
 	}
 	printf("%s\n", str);
 }
