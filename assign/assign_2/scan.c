@@ -58,10 +58,11 @@ static TOKEN set_token(char c){
 }
 
 TOKEN getToken(){
+	printf("getToken START\n");
 	TOKEN tok;
 	DFA_STATE dfa = D_START;
 	while (dfa != D_DONE){
-		char c = file[ptr];
+		char c = *file[ptr];
 		printf("%c", c);
 		switch (dfa){
 			case D_START:
@@ -242,7 +243,9 @@ int delete(){
 	free(file);
 }
 int main(int argc, char *argv[]){
-	load_source(argv[1]);
+	int test = load_source(argv[1]);
+	if (test == 0)
+		exit(0);
 	TOKEN t = getToken();
 	while (t.type != ENDFILE){
 		printf("test\n");
