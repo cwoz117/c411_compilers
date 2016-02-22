@@ -63,7 +63,7 @@ void print_token(TOKEN t){
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
-		case EOF:
+		case '\0':
 			tok.type = ENDFILE;
 			break;
 		case '+':
@@ -144,6 +144,11 @@ TOKEN getToken(){
 						case 'p':
 						case 'P':
 							dfa = D_PRINT;
+							break;
+						case 'r':
+						case 'R':
+							dfa = D_READ;
+							break;
 						case '/':
 							if (file[ptr+1] == '*')
 								dfa = D_BLOCK_COMMENT;
@@ -262,7 +267,7 @@ TOKEN getToken(){
 				break;
 			case D_PRINT:
 				dfa = D_DONE;
-				if (c == 'p' || c== 'P') {
+				if (c == 'r' || c== 'R') {
 					tok.type = PRINT;
 				} else {
 					tok.type = ERROR;
@@ -271,7 +276,7 @@ TOKEN getToken(){
 				break;
 			case D_READ:
 				dfa = D_DONE;
-				if (c == 'r' || c== 'R') {
+				if (c == 'e' || c== 'E') {
 					tok.type = READ;
 				} else {
 					tok.type = ERROR;
@@ -306,7 +311,7 @@ int load_source(char *name){
 			if (count == 0)
 				return 0;
 			else
-				file[buffer_size] = EOF;
+				file[buffer_size] = '\0';
 			fclose(fd);
 		}
 		return 1;
