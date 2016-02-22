@@ -99,7 +99,11 @@ TOKEN getToken(){
 					init_ptr = ptr;
 				} else if (WHITESPACE){
 					// Do nothing
-				} else if (isalpha(c)){
+				} else if (c == ':'){
+					dfa = D_ASSIGN;
+				} else if (c == '%'){
+					dfa = D_INLINE_COMMENT;
+				}else if (isalpha(c)){
 					switch(c){
 						case 'b':
 						case 'B':
@@ -113,12 +117,6 @@ TOKEN getToken(){
 								dfa = D_END;
 							else
 								dfa = D_ELSE;
-							break;
-						case ':':
-							dfa = D_ASSIGN;
-							break;
-						case '%':
-							dfa = D_INLINE_COMMENT;
 							break;
 						case 'I':
 						case 'i': //TODO var error
