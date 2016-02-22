@@ -232,7 +232,7 @@ int load_source(char *name){
 			if (count == 0)
 				return 0;
 			else
-				memcpy(file[count++], '\0', 1);
+				memcpy(&file[count++], '\0', sizeof(char));
 			fclose(fd);
 		}
 		
