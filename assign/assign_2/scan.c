@@ -128,7 +128,6 @@ TOKEN getToken(){
 				}else if (c == '/'){
 					if (file[ptr+1] == '*'){
 							dfa = D_BLOCK_COMMENT;
-							printf("block comment\n");
 						}
 				}else if (isalpha(c)){
 					switch(c){
