@@ -238,7 +238,7 @@ int load_source(char *name){
 			if (count == 0)
 				return 0;
 			else
-				memcpy(&file[count++], '\0', sizeof(char));
+				memcpy(&file[buffer_size], '\0', sizeof(char));
 			printf("memcopied\n");
 			fclose(fd);
 		}
