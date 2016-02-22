@@ -105,7 +105,7 @@ TOKEN getToken(){
 						case 'E':
 							if (file[ptr+1] == 'N')
 								dfa = D_END;
-							else (file[ptr+1] == 'L')
+							else
 								dfa = D_ELSE;
 							break;
 						case ':':
