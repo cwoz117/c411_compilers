@@ -80,7 +80,7 @@ TOKEN getToken(){
 					if (file[ptr+1] == '*')
 						dfa = D_BLOCK_COMMENT;
 				} else if (c == '%'){
-					dfa = D_INLINE_COMMENT
+					dfa = D_INLINE_COMMENT;
 				} else if (c == 'B') {
 					dfa = D_BEGIN;
 				} else if (c == 'E') {
@@ -112,7 +112,8 @@ TOKEN getToken(){
 					char buf[ptr - init_ptr];
 					memcpy(&buf[0], &file[init_ptr], 
 					      (ptr - init_ptr));
-				}	tok.attribute.val = atoi(&buf[0]);
+					tok.attribute.val = atoi(&buf[0]);
+				}
 				break;
 			case D_VAR:
 				if (!isAlpha(c)){
@@ -227,11 +228,11 @@ int load_source(char *name){
 				return 0;
 			
 			// Load the file
-			int count = fread(fd, sizeof(char), buffer_size, fd);
+			int count = fread(file, sizeof(char), buffer_size, fd);
 			if (count == 0)
 				return 0;
 			else
-				memcpy(fd[count++], '\0', 1);
+				memcpy(file[count++], '\0', 1);
 			fclose(fd);
 		}
 		
