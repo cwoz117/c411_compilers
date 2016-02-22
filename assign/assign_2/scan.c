@@ -291,7 +291,6 @@ TOKEN getToken(){
 int load_source(char *name){
 	FILE *fd = fopen(name, "r");
 	if (fd != NULL){
-	if (fd != NULL){
 		// Determine the buffer size requirement
 		if (fseek(fd, 0L, SEEK_END) == 0){
 			long buffer_size = ftell(fd);
