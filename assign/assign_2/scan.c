@@ -269,6 +269,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'r' || c== 'R') {
 					tok.type = PRINT;
+					ptr += 3;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
@@ -278,6 +279,7 @@ TOKEN getToken(){
 				dfa = D_DONE;
 				if (c == 'e' || c== 'E') {
 					tok.type = READ;
+					ptr += 2;
 				} else {
 					tok.type = ERROR;
 					ptr -= 1;
