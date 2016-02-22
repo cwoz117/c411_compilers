@@ -20,7 +20,8 @@ typedef enum {
 	D_BLOCK_COMMENT, D_INLINE_COMMENT,
 	D_IF, D_THEN, D_ELSE,
 	D_BEGIN, D_END,
-	D_DO, D_WHILE, 
+	D_DO, D_WHILE,
+	D_PRINT, D_READ;
 }DFA_STATE;
 
 void print_token(TOKEN t){
@@ -45,6 +46,9 @@ void print_token(TOKEN t){
 			memcpy(&str[0], "NUM\0", 4);
 			break;
 		case ERROR:
+			memcpy(&str[0], "ERROR\0", 6);
+			break;
+		case PRINT:
 			memcpy(&str[0], "ERROR\0", 6);
 			break;
 		default:
@@ -134,6 +138,9 @@ TOKEN getToken(){
 						case 'd': //TODO variable error.
 							dfa = D_DO;
 							break;
+						case 'p':
+						case 'P':
+							dfa = D_PRINT;
 						case '/':
 							if (file[ptr+1] == '*')
 								dfa = D_BLOCK_COMMENT;
@@ -170,10 +177,8 @@ TOKEN getToken(){
 				}
 				break;
 			case D_ASSIGN:
-				printf("got to assign\n");
 				dfa = D_DONE;
 				if (c == '='){
-					printf("got to the right state\n");
 					tok.type = ASSIGN;
 				} else {
 					ptr -= 1;
@@ -251,6 +256,24 @@ TOKEN getToken(){
 			case D_INLINE_COMMENT:
 				if (c == '\n')
 					dfa = D_START;
+				break;
+			case D_PRINT:
+				dfa = D_DONE;
+				if (c == 'r' || c== 'R') {
+					tok.type = PRINT;
+				} else {
+					tok.type = ERROR;
+					ptr -= 1;
+				}
+				break;
+			case D_WRITE:
+				dfa = D_DONE;
+				if (c == 'r' || c== 'R') {
+					tok.type = WRITE;
+				} else {
+					tok.type = ERROR;
+					ptr -= 1;
+				}
 				break;
 			default:
 				dfa = D_DONE;

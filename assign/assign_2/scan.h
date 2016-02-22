@@ -8,7 +8,8 @@ typedef enum{
 	NUM, VAR, ASSIGN,
 	BEGIN, END, 
 	WHILE, DO, 
-	IF, THEN, ELSE
+	IF, THEN, ELSE,
+	PRINT, WRITE
 }TOKEN_CLASS;
 
 typedef struct TOKEN{
