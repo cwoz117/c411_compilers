@@ -101,12 +101,15 @@ TOKEN getToken(){
 					// Do nothing
 				} else if (isalpha(c)){
 					switch(c){
+						case 'b':
 						case 'B':
 							printf("got to begin\n");
 							dfa = D_BEGIN;
 							break;
+						case 'e':
 						case 'E':
-							if (file[ptr+1] == 'N')
+							if (file[ptr+1] == 'N' ||
+							    file[ptr+1] == 'n')
 								dfa = D_END;
 							else
 								dfa = D_ELSE;
@@ -117,16 +120,20 @@ TOKEN getToken(){
 						case '%':
 							dfa = D_INLINE_COMMENT;
 							break;
-						case 'i':
+						case 'I':
+						case 'i': //TODO var error
 							dfa = D_IF;
 							break;
-						case 't':
+						case 'T':
+						case 't': //TODO var error.
 							dfa = D_THEN;
 							break;
-						case 'w':
+						case 'W':
+						case 'w': //TODO variable error.
 							dfa = D_WHILE;
 							break;
-						case 'd':
+						case 'D':
+						case 'd': //TODO variable error.
 							dfa = D_DO;
 							break;
 						case '/':
