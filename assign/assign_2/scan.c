@@ -26,7 +26,7 @@ typedef enum {
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
-		case EOF:
+		case '\0':
 			tok.type = ENDFILE;
 			break;
 		case '+':
@@ -256,7 +256,7 @@ int load_source(char *name){
 			if (count == 0)
 				return 0;
 			else
-				file[buffer_size] = '\0';
+				file[buffer_size] = EOF;
 			fclose(fd);
 		}
 		return 1;
