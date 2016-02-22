@@ -13,8 +13,10 @@ static int ptr = 0;
 static int init_ptr;
 
 typedef enum {
-	START, DONE, NUM, VAR, ASSIGN, BLOCK_COMMENT, INLINE_COMMENT,
-	IF, THEN, BEGIN, DO, WHILE, 
+	D_START, D_DONE, 
+	D_NUM, D_VAR, D_ASSIGN, 
+	D_BLOCK_COMMENT, D_INLINE_COMMENT,
+	D_IF, D_THEN, D_BEGIN, D_DO, D_WHILE, 
 }DFA_STATE;
 
 static void set_token(char c){
@@ -53,67 +55,67 @@ static void set_token(char c){
 
 TOKEN getToken(){
 	TOKEN tok;
-	DFA_STATE dfa = START;
+	DFA_STATE dfa = D_START;
 	while (dfa != DONE){
 		char c = file[ptr];
 		switch (dfa_state){
-			case START:
+			case D_START:
 				if (isDigit(c)){
-					state = NUM;
+					state = D_NUM;
 					init_ptr = ptr;
 				} else if (c == ':'){
-					state = ASSIGN;
+					state = D_ASSIGN;
 				} else if (WHITESPACE){
 					// Do nothing
 				} else if (c == '/'){
 					if (file[ptr+1] == '*')
-						state = BLOCK_COMMENT;
+						state = D_BLOCK_COMMENT;
 				} else if (c == '%'){
-					state = INLINE_COMMENT
+					state = D_INLINE_COMMENT
 				} else if (c == 'B') {
-					state = BEGIN;
+					state = D_BEGIN;
 				} else if (c == 'E') {
 					if (file[ptr+1] == 'N')
-						state = END;
+						state = D_END;
 					else if (file[ptr+1] == 'L')
-						state = ELSE;
+						state = D_ELSE;
 				} else if (c == 'i'){
-					state = IF;
+					state = D_IF;
 				} else if (c == 't'){
-					state = THEN;
+					state = D_THEN;
 				} else if (c == 'w') {
-					state = WHILE;
+					state = D_WHILE;
 				} else if (c == 'd'){
-					state = DO;
+					state = D_DO;
 				} else if (isAlpha(c)){
-					state = VAR;
+					state = D_VAR;
 					init_ptr = ptr;
 				} else {
-					state = DONE;
+					state = D_DONE;
 					set_token(c);
 				}
 				break;
-			case NUM:
+			case D_NUM:
 				if (!isDigit(c)){
 					ptr -=1;
-					state = DONE;
+					state = D_DONE;
 					tok.type = NUM;
 					char buf[ptr - init_ptr];
 					memcpy(buf, file, 
 					       init_ptr, (ptr-init_ptr));
 				}	tok.attribute.val = atoi(buf);
 				break;
-			case VAR:
+			case D_VAR:
 				if (!isAlpha(c)){
 					ptr -=1;
-					state = DONE;
+					state = D_DONE;
 					tok.type = VAR;
 					memcpy(tok.attribute.name, file, 
 					       init_ptr, (ptr-init_ptr));
 				}
 				break;
-			case ASSIGN:
-				state = DONE;
+			case D_ASSIGN:
+				state = D_DONE;
 				if (c == '='){
 					tok.type = ASSIGN;
 				} else {
@@ -121,8 +123,8 @@ TOKEN getToken(){
 					tok.type = ERROR;
 				}
 				break;
-			case IF:
-				state = DONE;
+			case D_IF:
+				state = D_DONE;
 				if (c == 'f'){
 					tok.type = IF;
 				} else {
@@ -130,8 +132,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case THEN:
-				state = DONE;
+			case D_THEN:
+				state = D_DONE;
 				if (c == 'h'){
 					tok.type = THEN;
 				} else {
@@ -139,8 +141,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case ELSE:
-				state = DONE;
+			case D_ELSE:
+				state = D_DONE;
 				if (c == 'l'){
 					tok.type = ELSE;
 				} else {
@@ -148,8 +150,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case WHILE:
-				state = DONE;
+			case D_WHILE:
+				state = D_DONE;
 				if (c == 'h') {
 					tok.type = WHILE;
 				} else {
@@ -157,8 +159,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case DO:
-				state = DONE;
+			case D_DO:
+				state = D_DONE;
 				if (c == 'o') {
 					tok.type = DO;
 				} else {
@@ -166,8 +168,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case BEGIN:
-				state = DONE;
+			case D_BEGIN:
+				state = D_DONE;
 				if (c == 'e'){
 					tok.type = BEGIN;
 				} else {
@@ -175,8 +177,8 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case END:
-				state = DONE;
+			case D_END:
+				state = D_DONE;
 				if (c == 'n'){
 					tok.type = END;
 				} else {
@@ -184,17 +186,17 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case BLOCK_COMMENT:
+			case D_BLOCK_COMMENT:
 				if (c == '*')
 					if (file[ptr+1] == '/')
-						state = START;
+						state = D_START;
 				break;
-			case INLINE_COMMENT:
+			case D_INLINE_COMMENT:
 				if (c == '\n')
-					state = START;
+					state = D_START;
 				break;
 			default:
-				state = DONE:
+				state = D_DONE:
 				tok.type = ERROR;
 				break;
 		}
