@@ -60,13 +60,13 @@ void print_token(TOKEN t){
 	char str[16];
 	switch (t.type){
 		case BEGIN:
-			str = "BEGIN\0";
+			str = {"BEGIN\0"};
 			break;
 		case END:
-			str = "END\0";
+			str = {"END\0"};
 			break;
 		case SEMICOLON:
-			str = "SEMICOLON\0";
+			str = {"SEMICOLON\0"};
 			break;
 		case 
 	}
