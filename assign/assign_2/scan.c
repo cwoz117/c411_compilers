@@ -83,12 +83,10 @@ void print_token(TOKEN t){
 	printf("%s\n", str);
 }
 TOKEN getToken(){
-	printf("getToken START\n");
 	TOKEN tok;
 	DFA_STATE dfa = D_START;
 	while (dfa != D_DONE){
 		char c = file[ptr];
-		printf("%c", c);
 		switch (dfa){
 			case D_START:
 				if (isdigit(c)){
