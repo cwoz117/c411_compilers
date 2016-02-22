@@ -54,6 +54,21 @@ void print_token(TOKEN t){
 		case READ:
 			memcpy(&str[0], "READ\0", 5);
 			break;
+		case IF:
+			memcpy(&str[0], "IF\0", 3);
+			break;
+		case THEN:
+			memcpy(&str[0], "THEN\0", 5);
+			break;
+		case ELSE:
+			memcpy(&str[0], "ELSE\0", 5);
+			break;
+		case DO:
+			memcpy(&str[0], "DO\0", 3);
+			break;
+		case WHILE:
+			memcpy(&str[0], "WHILE\0", 6);
+			break;
 		default:
 			memcpy(&str[0], "OPERATOR\0", 9);
 	}
