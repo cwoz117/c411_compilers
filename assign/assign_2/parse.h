@@ -1,6 +1,6 @@
 #ifndef PARSE_HEAD
 #define PARSE_HEAD
-
+#include "scan.h"
 
 
 typedef enum {

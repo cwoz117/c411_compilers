@@ -11,6 +11,7 @@
 #include "parse.h"
 #include "scan.h"
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
 static TOKEN token;
@@ -28,7 +29,7 @@ static NODE * exp_helper(void);
 static NODE * term(void);
 static NODE * factor(void);
 
-static NODE * new_stmt(STMT_TYPE t){
+static NODE * new_stmt(STMT_TYPE type){
 	NODE * t = malloc (sizeof(NODE));
 	if (t == NULL){
 		printf("Could not create new Node\n");
@@ -39,12 +40,12 @@ static NODE * new_stmt(STMT_TYPE t){
 		t->sibling = NULL;
 		t->line_number = lineno;
 		t->kind = STMT;
-		t->type.stmt = t;
+		t->type.stmt = type;
 	}
 	return t;
 }
 
-static NODE new_exp(EXP_TYPE t){
+static NODE new_exp(EXP_TYPE type){
 	NODE * t = malloc(sizeof(NODE));
 	if (t == NULL){
 		printf("Could not create new node\n");
@@ -55,7 +56,7 @@ static NODE new_exp(EXP_TYPE t){
 		t->sibling = NULL;
 		t->line_number = lineno;
 		t->kind = EXP;
-		t->type.exp = t;
+		t->type.exp = type;
 	}
 	return t;
 }
@@ -77,8 +78,8 @@ static void syntax_error(char * message){
 	printf("Error on line %d: %s\n", lineno, message);
 }
 
-static void match(TOKEN expected){
-	if (token == expected)
+static void match(TOKEN_CLASS expected){
+	if (token.type == expected)
 		token = getToken();
 	else {
 		syntax_error("Unexpected Token ->");
@@ -93,7 +94,7 @@ static NODE * stmt_list(void){
 	NODE * p = t;
 	while ( (token.type != ENDFILE) && (token.type != END) &&
 					   (token.type != ELSE)) {
-		Node * q;
+		NODE * q;
 		match(SEMICOLON);
 		q = statement();
 		if (q != NULL){
@@ -140,7 +141,7 @@ static NODE * statement(void){
 }
 
 static NODE * if_stmt(void){
-	Node * t = new_stmt(N_IF);
+	NODE * t = new_stmt(N_IF);
 	match(IF);
 	if (t != NULL){
 		t->child[0] = exp();
@@ -194,9 +195,9 @@ static NODE * read(void){
 	return t;
 }
 
-static NODE * write(void){
-	NODE * t = new_stmt(N_WRITE);
-	match(WRITE);
+static NODE * print(void){
+	NODE * t = new_stmt(N_PRINT);
+	match(PRINT);
 	if (t != NULL)
 		t->child[0] = exp();
 	return t;
@@ -217,8 +218,8 @@ static NODE * exp(void){
 
 static NODE *exp_helper(void){
 	NODE * t = term();
-	while (token.type == ADD || token.type = SUB){
-		NODE *temp = new_exp(N_OP);
+	while (token.type == ADD || token.type == SUB){
+		NODE * temp = new_exp(N_OP);
 		if (temp != NULL){
 			temp->child[0] = t;
 			temp->attribute.token_class = token.type;
@@ -233,13 +234,13 @@ static NODE *exp_helper(void){
 static NODE * term(void){
 	NODE * t = factor();
 	while (token.type == MUL || token.type == DIV){
-		NODE *temp = new_exp(N_OP);
+		NODE * temp = new_exp(N_OP);
 		if (temp != NULL){
 			temp->child[0] = t;
 			temp->attribute.token_class = token.type;
 			t = temp;
 			match(token.type);
-			p->child[1] = factor();
+			temp->child[1] = factor();
 		}
 	}
 	return t;
@@ -287,6 +288,6 @@ Node * parse(void){
 int main(int argc, char * argv[]){
 	int i = load_source(argv[1]);
 	if (i){
-		parse();
+		NODE * ast = parse();
 	}
 }
