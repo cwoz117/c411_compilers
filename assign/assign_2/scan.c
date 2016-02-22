@@ -22,12 +22,6 @@ typedef enum {
 	D_DO, D_WHILE, 
 }DFA_STATE;
 
-static int isNumber(char a){
-	
-}
-static int isAlpha(char a){
-	
-}
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
@@ -69,7 +63,7 @@ TOKEN getToken(){
 		char c = file[ptr];
 		switch (dfa){
 			case D_START:
-				if (isNumber(c)){
+				if (isdigit(c)){
 					dfa = D_NUM;
 					init_ptr = ptr;
 				} else if (c == ':'){
@@ -96,7 +90,7 @@ TOKEN getToken(){
 					dfa = D_WHILE;
 				} else if (c == 'd'){
 					dfa = D_DO;
-				} else if (isAlpha(c)){
+				} else if (isalpha(c)){
 					dfa = D_VAR;
 					init_ptr = ptr;
 				} else {
@@ -105,7 +99,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_NUM:
-				if (!isNumber(c)){
+				if (!isdigit(c)){
 					ptr -=1;
 					dfa = D_DONE;
 					tok.type = NUM;
@@ -116,7 +110,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_VAR:
-				if (!isAlpha(c)){
+				if (!isalpha(c)){
 					ptr -=1;
 					dfa = D_DONE;
 					tok.type = VAR;
