@@ -16,7 +16,9 @@ typedef enum {
 	D_START, D_DONE, 
 	D_NUM, D_VAR, D_ASSIGN, 
 	D_BLOCK_COMMENT, D_INLINE_COMMENT,
-	D_IF, D_THEN, D_BEGIN, D_DO, D_WHILE, 
+	D_IF, D_THEN, D_ELSE,
+	D_BEGIN, D_END,
+	D_DO, D_WHILE, 
 }DFA_STATE;
 
 static void set_token(char c){
@@ -58,64 +60,64 @@ TOKEN getToken(){
 	DFA_STATE dfa = D_START;
 	while (dfa != DONE){
 		char c = file[ptr];
-		switch (dfa_state){
+		switch (dfa){
 			case D_START:
 				if (isDigit(c)){
-					state = D_NUM;
+					dfa = D_NUM;
 					init_ptr = ptr;
 				} else if (c == ':'){
-					state = D_ASSIGN;
+					dfa = D_ASSIGN;
 				} else if (WHITESPACE){
 					// Do nothing
 				} else if (c == '/'){
 					if (file[ptr+1] == '*')
-						state = D_BLOCK_COMMENT;
+						dfa = D_BLOCK_COMMENT;
 				} else if (c == '%'){
-					state = D_INLINE_COMMENT
+					dfa = D_INLINE_COMMENT
 				} else if (c == 'B') {
-					state = D_BEGIN;
+					dfa = D_BEGIN;
 				} else if (c == 'E') {
 					if (file[ptr+1] == 'N')
-						state = D_END;
+						dfa = D_END;
 					else if (file[ptr+1] == 'L')
-						state = D_ELSE;
+						dfa = D_ELSE;
 				} else if (c == 'i'){
-					state = D_IF;
+					dfa = D_IF;
 				} else if (c == 't'){
-					state = D_THEN;
+					dfa = D_THEN;
 				} else if (c == 'w') {
-					state = D_WHILE;
+					dfa = D_WHILE;
 				} else if (c == 'd'){
-					state = D_DO;
+					dfa = D_DO;
 				} else if (isAlpha(c)){
-					state = D_VAR;
+					dfa = D_VAR;
 					init_ptr = ptr;
 				} else {
-					state = D_DONE;
+					dfa = D_DONE;
 					set_token(c);
 				}
 				break;
 			case D_NUM:
 				if (!isDigit(c)){
 					ptr -=1;
-					state = D_DONE;
+					dfa = D_DONE;
 					tok.type = NUM;
 					char buf[ptr - init_ptr];
-					memcpy(buf, file, 
-					       init_ptr, (ptr-init_ptr));
-				}	tok.attribute.val = atoi(buf);
+					memcpy(buf, file[init_ptr], 
+					      (ptr - init_ptr));
+				}	tok.attribute.val = atoi(&buf[0]);
 				break;
 			case D_VAR:
 				if (!isAlpha(c)){
 					ptr -=1;
-					state = D_DONE;
+					dfa = D_DONE;
 					tok.type = VAR;
-					memcpy(tok.attribute.name, file, 
-					       init_ptr, (ptr-init_ptr));
+					memcpy(tok.attribute.name, file[init_ptr], 
+					      (ptr - init_ptr));
 				}
 				break;
 			case D_ASSIGN:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == '='){
 					tok.type = ASSIGN;
 				} else {
@@ -124,7 +126,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_IF:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'f'){
 					tok.type = IF;
 				} else {
@@ -133,7 +135,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_THEN:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'h'){
 					tok.type = THEN;
 				} else {
@@ -142,7 +144,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_ELSE:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'l'){
 					tok.type = ELSE;
 				} else {
@@ -151,7 +153,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_WHILE:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'h') {
 					tok.type = WHILE;
 				} else {
@@ -160,7 +162,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_DO:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'o') {
 					tok.type = DO;
 				} else {
@@ -169,7 +171,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_BEGIN:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'e'){
 					tok.type = BEGIN;
 				} else {
@@ -178,7 +180,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_END:
-				state = D_DONE;
+				dfa = D_DONE;
 				if (c == 'n'){
 					tok.type = END;
 				} else {
@@ -189,14 +191,14 @@ TOKEN getToken(){
 			case D_BLOCK_COMMENT:
 				if (c == '*')
 					if (file[ptr+1] == '/')
-						state = D_START;
+						dfa = D_START;
 				break;
 			case D_INLINE_COMMENT:
 				if (c == '\n')
-					state = D_START;
+					dfa = D_START;
 				break;
 			default:
-				state = D_DONE:
+				dfa = D_DONE:
 				tok.type = ERROR;
 				break;
 		}
