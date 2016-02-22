@@ -205,6 +205,7 @@ TOKEN getToken(){
 				tok.type = ERROR;
 				break;
 		}
+		printf("%s\n", tok.type);
 		ptr += 1;
 	}
 	return tok;
