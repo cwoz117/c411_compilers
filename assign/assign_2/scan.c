@@ -164,8 +164,10 @@ TOKEN getToken(){
 						dfa = D_READ;
 						break;
 					case '/':
-						if (file[ptr+1] == '*')
+						if (file[ptr+1] == '*'){
 							dfa = D_BLOCK_COMMENT;
+							printf("block comment\n");
+						}
 						break;
 					default:
 						dfa = D_VAR;
@@ -276,6 +278,7 @@ TOKEN getToken(){
 				}
 				break;
 			case D_BLOCK_COMMENT:
+				dfa = D_BLOCK_COMMENT;
 				if (c == '*'){
 					if (file[ptr+1] == '/'){
 						dfa = D_START;
