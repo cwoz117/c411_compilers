@@ -127,53 +127,52 @@ TOKEN getToken(){
 					dfa = D_INLINE_COMMENT;
 				}else if (isalpha(c)){
 					switch(c){
-						case 'b':
-						case 'B':
-							
-							dfa = D_BEGIN;
-							break;
-						case 'e':
-						case 'E':
-							if (file[ptr+1] == 'N' ||
-							    file[ptr+1] == 'n')
-								dfa = D_END;
-							else
-								dfa = D_ELSE;
-							break;
-						case 'I':
-						case 'i': //TODO var error
-							dfa = D_IF;
-							break;
-						case 'T':
-						case 't': //TODO var error.
-							dfa = D_THEN;
-							break;
-						case 'W':
-						case 'w': //TODO variable error.
-							dfa = D_WHILE;
-							break;
-						case 'D':
-						case 'd': //TODO variable error.
-							dfa = D_DO;
-							break;
-						case 'p':
-						case 'P':
-							dfa = D_PRINT;
-							break;
-						case 'r':
-						case 'R':
-							dfa = D_READ;
-							break;
-						case '/':
-							if (file[ptr+1] == '*')
-								dfa = D_BLOCK_COMMENT;
-							break;
-						default:
-							dfa = D_VAR;
-							init_ptr = ptr;
-							break;
+					case 'b':
+					case 'B':		
+						dfa = D_BEGIN;
+						break;
+					case 'e':
+					case 'E':
+						if (file[ptr+1] == 'N' ||
+						    file[ptr+1] == 'n')
+							dfa = D_END;
+						else
+							dfa = D_ELSE;
+						break;
+					case 'I':
+					case 'i': //TODO var error
+						dfa = D_IF;
+						break;
+					case 'T':
+					case 't': //TODO var error.
+						dfa = D_THEN;
+						break;
+					case 'W':
+					case 'w': //TODO variable error.
+						dfa = D_WHILE;
+						break;
+					case 'D':
+					case 'd': //TODO variable error.
+						dfa = D_DO;
+						break;
+					case 'p':
+					case 'P':
+						dfa = D_PRINT;
+						break;
+					case 'r':
+					case 'R':
+						dfa = D_READ;
+						break;
+					case '/':
+						if (file[ptr+1] == '*')
+							dfa = D_BLOCK_COMMENT;
+						break;
+					default:
+						dfa = D_VAR;
+						init_ptr = ptr;
+						break;
 					}
-					
+				
 				} else {
 					dfa = D_DONE;
 					tok = set_token(c);
@@ -199,7 +198,7 @@ TOKEN getToken(){
 					      (ptr - init_ptr));
 				}
 				break;
-			case D_ASSIGN:
+			case D_ASSIGN:	//Put in set_token
 				dfa = D_DONE;
 				if (c == '='){
 					tok.type = ASSIGN;
@@ -208,7 +207,7 @@ TOKEN getToken(){
 					tok.type = ERROR;
 				}
 				break;
-			case D_IF:
+			case D_IF:	//put in set_token
 				dfa = D_DONE;
 				if (c == 'f'){
 					tok.type = IF;
@@ -217,7 +216,7 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case D_THEN:
+			case D_THEN:	//put in set_token
 				dfa = D_DONE;
 				if (c == 'h'){
 					tok.type = THEN;
@@ -227,7 +226,7 @@ TOKEN getToken(){
 					ptr -= 1;
 				}
 				break;
-			case D_ELSE:
+			case D_ELSE:	//put in set_token
 				dfa = D_DONE;
 				if (c == 'l'){
 					tok.type = ELSE;
