@@ -26,7 +26,7 @@ typedef enum {
 static TOKEN set_token(char c){
 	TOKEN tok;
 	switch (c){
-		case '\0':
+		case EOF:
 			tok.type = ENDFILE;
 			break;
 		case '+':
@@ -77,8 +77,11 @@ void print_token(TOKEN t){
 		case NUM:
 			memcpy(&str[0], "NUM\0", 4);
 			break;
+		case ERROR:
+			memcpy(&str[0], "ERROR\0", 6);
+			break;
 		default:
-			memcpy(&str[0], "OTHER\0", 6);
+			memcpy(&str[0], "OPERATOR\0", 9);
 	}
 	printf("%s\n", str);
 }
